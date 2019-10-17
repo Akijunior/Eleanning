@@ -82,7 +82,7 @@ class LessonComment(models.Model):
 
 
     lesson = models.ForeignKey(
-        Lesson, verbose_name='Aula', related_name='comentários', on_delete=models.CASCADE
+        Lesson, verbose_name='Aula', related_name='comments', on_delete=models.CASCADE
     )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', on_delete=models.CASCADE)
     comment = models.TextField('Comentário')
