@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 from simplemooc.core.mail import send_mail_template
 
@@ -17,6 +18,8 @@ class CourseManager(models.Manager):
 
 
 class Course(models.Model):
+    tags = TaggableManager()
+
     nome = models.CharField('Nome', max_length=100)
     slug = models.SlugField('Atalho')
     description = models.TextField('Descrição Simples', blank=True)

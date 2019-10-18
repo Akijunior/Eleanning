@@ -2,10 +2,13 @@ from django.conf.urls import url
 from django.urls import path
 
 from simplemooc.courses.views import index, details, enrollment, undo_enrollment, \
-    lessons, show_lesson, material
+    lessons, show_lesson, material, CourseView
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', CourseView.as_view(), name='index'),
+    path('tag/<tag>/', CourseView.as_view(), name='index_tagged'),
+
+    # path('', index, name='index'),
     path('<slug>/', details, name='details'),
     path('<slug>/inscricao/', enrollment, name='enrollment'),
 
