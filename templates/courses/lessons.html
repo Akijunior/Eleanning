@@ -8,7 +8,7 @@
 
 {% block dashboard_content %}
 
-{% for lesson in course.release_lessons %}
+{% for lesson in course.lessons.all %}
     <div class="well">
         <h2><a href="{% url 'courses:show_lesson' course.slug lesson.pk %}">{{ lesson }}</a></h2>
         <p>

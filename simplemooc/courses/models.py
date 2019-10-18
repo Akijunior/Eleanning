@@ -154,41 +154,6 @@ class Enrollment(models.Model):
         return "Inscrição"
 
 
-class Announcement(models.Model):
-
-    course = models.ForeignKey(
-        Course, verbose_name='Curso', related_name='announcements', on_delete=models.CASCADE
-    )
-    title = models.CharField('Título', max_length=100)
-    content = models.TextField('Conteúdo')
-
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
-    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Anúncio'
-        verbose_name_plural = 'Anúncios'
-        ordering = ['-created_at']
-
-
-class Comment(models.Model):
-    announcement = models.ForeignKey(
-        Announcement, verbose_name='Anúncio', related_name='comments', on_delete=models.CASCADE
-    )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', on_delete=models.CASCADE)
-    comment = models.TextField('Comentário')
-
-    created_at = models.DateTimeField('Criado em', auto_now_add=True)
-    updated_at = models.DateTimeField('Atualizado em', auto_now=True)
-
-    class Meta:
-        verbose_name = 'Comentário'
-        verbose_name_plural = 'Comentários'
-        ordering = ['created_at']
-
 
 def post_save_announcement(instance, created, **kwargs):
     if created:
@@ -202,8 +167,3 @@ def post_save_announcement(instance, created, **kwargs):
             recipient_list = [enrollment.user.email]
             send_mail_template(subject, template_name, context, recipient_list)
 
-
-# Ativa o signal
-models.signals.post_save.connect(
-    post_save_announcement, sender=Announcement, dispatch_uid='post_save_announcement'
-)

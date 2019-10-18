@@ -5,7 +5,7 @@ from django.conf import settings
 from simplemooc.core.mail import send_mail_template
 
 #Classe para formulario
-from simplemooc.courses.models import Comment, LessonComment
+from simplemooc.courses.models import LessonComment
 
 
 class ContactCourse(forms.Form):
@@ -32,13 +32,6 @@ class ContactCourse(forms.Form):
         send_mail_template(subject, template_name, context,
                   [settings.CONTACT_EMAIL]
                   )
-
-
-class CommentForm(forms.ModelForm):
-
-    class Meta:
-        model = Comment
-        fields = ['comment']
 
 
 class CommentLessonForm(forms.ModelForm):

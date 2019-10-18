@@ -3,11 +3,13 @@ from django.conf.urls import url
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from simplemooc.accounts.views import register, dashboard, edit
+from simplemooc.accounts.views import register, dashboard, edit, download_file
 
 from simplemooc.accounts.views import edit_password
 
 urlpatterns = [
+    path('<str:filepath>/', download_file),
+
     path('entrar/', LoginView.as_view(template_name ='../templates/accounts/login.html'), name='login'),
     path('sair/', LogoutView.as_view(next_page = 'core:home'), name='logout'),
     path('cadastre-se/', register, name='register'),
