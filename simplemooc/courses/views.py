@@ -101,19 +101,19 @@ def show_lesson(resquest, slug, pk):
     course = get_object_or_404(Course, slug=slug)
     lesson = get_object_or_404(Lesson, pk=pk, course=course)
 
-    # form = CommentLessonForm(resquest.POST or None)
+    form = CommentLessonForm(resquest.POST or None)
 
     if not resquest.user.is_staff and not lesson.is_available():
         messages.error(resquest, 'Esta aula não está disponível')
         return redirect('courses:lessons', slug=course.slug)
 
-    # if form.is_valid():
-    #     comment = form.save(commit=False)
-    #     comment.user = resquest.user
-    #     comment.lesson = lesson
-    #     comment.save()
-    #     form = CommentForm()
-    #     messages.success(resquest, 'Seu comentário foi enviado com sucesso.')
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.user = resquest.user
+        comment.lesson = lesson
+        comment.save()
+        form = CommentLessonForm()
+        messages.success(resquest, 'Seu comentário foi enviado com sucesso.')
     template_name = 'courses/show_lesson.html'
 
     context = {
