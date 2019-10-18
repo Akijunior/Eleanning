@@ -11,19 +11,6 @@ from simplemooc.courses.models import Enrollment
 from .forms import RegisterForm, EditAccountForm
 
 
-
-def download_file(request):
-    # fill these variables with real values
-    fl_path = '/file/path'
-    filename = 'downloaded_file_name.extension'
-
-    fl = open(fl_path, 'r')
-    mime_type, _ = mimetypes.guess_type(fl_path)
-    response = HttpResponse(fl, content_type=mime_type)
-    response['Content-Disposition'] = "attachment; filename=%s" % filename
-    return response
-
-
 @login_required  # Só permite acessa se estiver logado, não sendo possivel acessar diretamente pela url
 def dashboard(request):
     template_name = 'accounts/dashboard.html'
