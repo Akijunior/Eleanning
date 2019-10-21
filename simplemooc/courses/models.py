@@ -18,7 +18,6 @@ class CourseManager(models.Manager):
 
 
 class Course(models.Model):
-    tags = TaggableManager()
 
     nome = models.CharField('Nome', max_length=100)
     slug = models.SlugField('Atalho')
@@ -35,6 +34,8 @@ class Course(models.Model):
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     update_at = models.DateTimeField('Atualizado em', auto_now=True)
     objects = CourseManager()
+
+    tags = TaggableManager()
 
     # Metodo para retornar o nome do curso.
     def __str__(self):
