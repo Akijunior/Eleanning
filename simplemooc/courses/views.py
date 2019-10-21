@@ -8,6 +8,9 @@ from simplemooc.courses.decorators import enrollment_required
 from .forms import ContactCourse, CommentLessonForm
 from .models import Course, Enrollment, Material, Lesson
 
+from django.db.models import Q,CharField
+from django.db.models.functions import Lower
+CharField.register_lookup(Lower, "lower")
 
 class CourseView(ListView):
 
@@ -17,9 +20,10 @@ class CourseView(ListView):
     def get_queryset(self):
         queryset = Course.objects.all()
 
-        tag = self.kwargs.get('tag', '')
+        tag = self.kwargs.get('tag', '').lower()
+
         if tag:
-            queryset = queryset.filter(tags__slug__icontains=tag)
+            queryset = queryset.filter(tags__slug__lower__icontains=tag)
         return queryset
 
     def get_context_data(self, **kwargs):

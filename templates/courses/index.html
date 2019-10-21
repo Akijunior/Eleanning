@@ -24,7 +24,7 @@
                         {% for tag in tags %}
                         <a href="{% url 'courses:index_tagged' tag.slug %}" class="tags">
                             <i class="fa fa-tag"></i>
-                            {{ tag }}
+                            {{ tag|lower|capfirst }}
                         </a>
                         {% endfor %}
                     </li>
@@ -52,6 +52,13 @@
                     <h4 class="content-subhead"><a href="{{ course.get_absolute_url }}" title="">{{ course.nome }}</a>
                     </h4>
                     {{ course.description|linebreaks }}
+                    <p>Tags:</p>
+                        {% for tag in course.tags.all %}
+                        <a href="{% url 'courses:index_tagged' tag.slug %}" class="tags">
+                            <i class="fa fa-tag"></i>
+                            {{ tag|lower|capfirst }}
+                        </a>
+                        {% endfor %}
                 </div>
             </div>
         </div>
